@@ -14,8 +14,7 @@ class Bowling
     {
         if ($this->strike) {
             $this->total_score += $nb_pins * 2;
-        }
-        else {
+        } else {
             $this->total_score += $nb_pins;
         }
 
