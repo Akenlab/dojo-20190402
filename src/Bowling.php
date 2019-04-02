@@ -12,7 +12,7 @@ class Bowling
     private $spare = false;
     private $nbFireSinceStrike = 0;
     private $nbTurn = 0;
-    private $turnInProgress = false;
+    private $turnStarted = false;
 
     private $last_pin = 0;
 
@@ -25,16 +25,16 @@ class Bowling
 
         $this->last_pin = $nb_pins;
 
-        if ($this->strike || $this->turnInProgress){
+        if ($this->strike || $this->turnStarted){
             $this->nextTurn();
         } else {
-            $this->turnInProgress = true;
+            $this->turnStarted = true;
         }
     }
 
     public function nextTurn(){
         $this->nbTurn++;
-        $this->turnInProgress = false;
+        $this->turnStarted = false;
     }
 
     public function total()
@@ -45,7 +45,7 @@ class Bowling
     public function isSpare($first_pin, $second_pin)
     {
         return ($first_pin + $second_pin === 10)
-            && $this->turnInProgress;
+            && $this->turnStarted;
     }
 
     public function isStrike($first_pin)
