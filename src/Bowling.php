@@ -61,7 +61,7 @@ class Bowling
     {
         if ($this->isStrike($nb_pins)) {
             $this->strike = true;
-            $this->nbPreceedingStrike += $this->nbPreceedingStrike == 3 ? 0 : 1;
+            $this->nbPreceedingStrike += $this->nbPreceedingStrike == 2 ? 0 : 1;
             //$this->nbFireSinceStrike = 0;
         } else if ($this->isSpare($this->last_pin, $nb_pins)) {
             $this->spare = true;
