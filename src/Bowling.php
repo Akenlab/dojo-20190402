@@ -12,17 +12,14 @@ class Bowling
 
     public function pins_fallen(int $nb_pins)
     {
-        if($this->strike)
-        {
-            $this->total_score += $nb_pins*2;
+        if ($this->strike) {
+            $this->total_score += $nb_pins * 2;
         }
-        else
-        {
+        else {
             $this->total_score += $nb_pins;
         }
 
-        if ($nb_pins === 10)
-        {
+        if ($nb_pins === 10) {
             $this->strike = true;
         }
     }
