@@ -23,11 +23,11 @@ class Bowling
 
         $this->checkForStrikeOrSpare($nb_pins);
 
-        if ($this->spare || $this->strike) {
+/*        if ($this->spare || $this->strike) {
             $this->last_pin = $nb_pins/2;
-        } else {
+        } else {*/
             $this->last_pin = $nb_pins;
-        }
+/*        }*/
     }
 
     public function total()
