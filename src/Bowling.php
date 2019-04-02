@@ -22,6 +22,10 @@ class Bowling
 
         $this->total_score += $this->computeScore($nb_pins);
 
+        if ($this->total_score > 300) {
+            $this->total_score = 300;
+        }
+
         $this->checkForStrikeOrSpare($nb_pins);
 
         $this->last_pin = $nb_pins;
