@@ -3,4 +3,5 @@ App\Bowling
  [x] 1 gutter and 2 pins score 2
  [x] Strike and 1 and 2 score 16
  [x] Strike and 1 and 2 and 5 score 21
+ [x] Spare and 0 and 8 score 18
 
