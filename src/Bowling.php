@@ -13,6 +13,7 @@ class Bowling
     private $nbFireSinceStrike = 0;
     private $nbTurn = 0;
     private $turnStarted = false;
+    private $nbPreceedingStrike = 0;
 
     private $last_pin = 0;
 
@@ -60,6 +61,8 @@ class Bowling
     {
         if ($this->isStrike($nb_pins)) {
             $this->strike = true;
+            $this->nbPreceedingStrike += $this->nbPreceedingStrike == 3 ? 0 : 1;
+            //$this->nbFireSinceStrike = 0;
         } else if ($this->isSpare($this->last_pin, $nb_pins)) {
             $this->spare = true;
         }
@@ -72,15 +75,18 @@ class Bowling
     public function computeScore(int $nb_pins): int
     {
         if ($this->strike) {
-            $nb_pins *= 2;
+            $nb_pins *= 1 + $this->nbPreceedingStrike;
             $this->nbFireSinceStrike++;
             if ($this->nbFireSinceStrike == 2) {
                 $this->nbFireSinceStrike = 0;
                 $this->strike = false;
             }
         } elseif ($this->spare) {
+            $this->nbPreceedingStrike = 0;
             $nb_pins *= 2;
             $this->spare = false;
+        } else {
+            $this->nbPreceedingStrike = 0;
         }
         return $nb_pins;
     }
