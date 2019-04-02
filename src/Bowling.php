@@ -20,7 +20,7 @@ class Bowling
     public function pins_fallen(int $nb_pins)
     {
         $this->total_score += $this->computeScore($nb_pins);
-        
+
         $this->checkForStrikeOrSpare($nb_pins);
 
         if ($this->spare || $this->strike) {
