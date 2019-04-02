@@ -74,7 +74,6 @@ class Bowling
      */
     public function computeScore(int $nb_pins): int
     {
-        var_dump($this->strike);
         if ($this->strike) {
             if($this->nbTurn<10){
                 $nb_pins *= 1 + $this->nbPreceedingStrike;
@@ -87,11 +86,12 @@ class Bowling
                 $this->strike = false;
             }
         } elseif ($this->spare) {
-            $this->nbPreceedingStrike = 0;
+            $this->nbPreceedingStrike=max(0,$this->nbPreceedingStrike--);
             $nb_pins *= 2;
             $this->spare = false;
         } else {
-            $this->nbPreceedingStrike = 0;
+            var_dump($this->nbPreceedingStrike);
+            $this->nbPreceedingStrike =max(0,$this->nbPreceedingStrike--);
         }
         return $nb_pins;
     }
