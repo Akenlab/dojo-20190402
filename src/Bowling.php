@@ -17,7 +17,7 @@ class Bowling
      */
     private $last_pin = 0;
 
-    public function pins_fallen(int $nb_pins)
+    public function fire(int $nb_pins)
     {
         $this->total_score += $this->computeScore($nb_pins);
 
