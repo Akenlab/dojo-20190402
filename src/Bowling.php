@@ -13,7 +13,7 @@ class Bowling
     private $nbFireSinceStrike = 0;
     private $nbTurn = 0;
     private $turnStarted = false;
-    private $nbPreceedingStrike = 0;
+    private $nbPreceedingStrike = 8;
 
     private $last_pin = 0;
 
