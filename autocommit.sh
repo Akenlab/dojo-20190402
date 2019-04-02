@@ -10,7 +10,7 @@ fi
 if [ -d .git ]; then
     echo "Auto commit running. Have fun and press CTRL-C to finish."
     while true; do
-        if `vendor/bin/phpunit --stop-on-failure --stop-on-risky --stop-on-defect --disallow-test-output --testdox-text .testResult test > /dev/null 2>&1` ; then
+        if `vendor/bin/phpunit --stop-on-failure --stop-on-risky --stop-on-defect --disallow-test-output --testdox-text .testResult tests > /dev/null 2>&1` ; then
             if commitMessage=$(git diff .testResult |grep "^\-\ \|^\+\ ") ; then
               echo "test result has changed, commiting."
             else
