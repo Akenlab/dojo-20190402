@@ -41,7 +41,7 @@ class BowlingTest extends TestCase
         $this->assertSame(21,$game->total());
     }
 
-    public function test_spare_and_0_and_8_score_18()
+    public function test_spare_and_1_and_8_score_18()
     {
         $game=new Bowling();
         $game->pins_fallen(4);
