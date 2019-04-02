@@ -86,13 +86,11 @@ class BowlingTest extends TestCase
         $game=new Bowling();
         $game->fire(10);
         $game->fire(10);
-        $game->fire(10);
-        $game->fire(10);
-        $game->fire(10);
-        $game->fire(10);
         $game->fire(4);
         $game->fire(4);
-        $this->assertSame(240,$game->total());
+        $game->fire(5);
+        $game->fire(3);
+        $this->assertSame(58,$game->total());
     }
     public function test_10_strikes() {
         $game=new Bowling();

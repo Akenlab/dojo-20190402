@@ -1,15 +1,5 @@
 App\Bowling
  [x] 2 gutters score 0
  [x] 1 gutter and 2 pins score 2
- [x] Strike and 1 and 2 score 16
- [x] Strike and 1 and 2 and 5 score 21
- [x] Spare and 1 and 8 score 20
- [x] No spare between 2 turn
- [x] 3 strikes
- [x] 8 strikes
- [x] 9 strikes
- [x] 10 strikes
- [x] 11 strikes
- [x] 12 strikes
- [x] 10 strikes plus 4 scores
+ [ ] Strike and 1 and 2 score 16
 
