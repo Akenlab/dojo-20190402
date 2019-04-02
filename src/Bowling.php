@@ -86,7 +86,7 @@ class Bowling
                 $this->strike = false;
             }
         } elseif ($this->spare) {
-            $this->nbPreceedingStrike=max(0,$this->nbPreceedingStrike--);
+            $this->nbPreceedingStrike=max(0,$this->nbPreceedingStrike-1);
             $nb_pins *= 2;
             $this->spare = false;
         } else {
