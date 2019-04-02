@@ -22,7 +22,7 @@ class Bowling
             }
         }
         $this->total_score += $nb_pins;
-        
+
         if ($nb_pins === 10) {
             $this->strike = true;
         }

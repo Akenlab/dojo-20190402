@@ -29,7 +29,6 @@ class BowlingTest extends TestCase
         $game->pins_fallen(1);
         $game->pins_fallen(2);
         $this->assertSame(16,$game->total());
-
     }
 
     public function test_strike_and_1_and_2_and_5_score_21()
@@ -40,6 +39,5 @@ class BowlingTest extends TestCase
         $game->pins_fallen(2);
         $game->pins_fallen(5);
         $this->assertSame(21,$game->total());
-
     }
 }
