@@ -65,7 +65,7 @@ class BowlingTest extends TestCase
         $game=new Bowling();
         $game->fire(10);
         $game->fire(10);
-        $this->assertSame(50,$game->total());
+        $this->assertSame(30,$game->total());
 
     }
 }
