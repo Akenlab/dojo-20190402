@@ -93,9 +93,6 @@ class BowlingTest extends TestCase
         $game->fire(10);
         $game->fire(10);
         $game->fire(10);
-        $game->fire(10);
-        $game->fire(10);
-        $game->fire(10);
-        $this->assertSame(300,$game->total());
+        $this->assertSame(240,$game->total());
     }
 }
