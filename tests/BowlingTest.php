@@ -50,4 +50,14 @@ class BowlingTest extends TestCase
         $game->fire(8);
         $this->assertSame(20,$game->total());
     }
+
+    public function test_no_spare_between_2_turn()
+    {
+        $game=new Bowling();
+        $game->fire(4);
+        $game->fire(5);
+        $game->fire(5);
+        $game->fire(3);
+        $this->assertSame(17,$game->total());
+    }
 }
