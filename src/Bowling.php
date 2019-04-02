@@ -9,9 +9,9 @@ class Bowling
 
     private $total_score = 0;
 
-    public function pin(int $int)
+    public function pins_fallen(int $nb_pins)
     {
-        $this->total_score += $int;
+        $this->total_score += $nb_pins;
     }
 
     public function total()
