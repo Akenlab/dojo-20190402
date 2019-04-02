@@ -35,7 +35,7 @@ class Bowling
 
         if ($nb_pins === 10) {
             $this->strike = true;
-        } else if ($this->last_pin+$nb_pins === 10) {
+        } else if ($this->isSpare($this->last_pin, $nb_pins)) {
             $this->spare = true;
         }
 
@@ -49,5 +49,15 @@ class Bowling
     public function total()
     {
         return $this->total_score;
+    }
+
+    public function isSpare($first_pin, $second_pin)
+    {
+        return $first_pin + $second_pin === 10;
+    }
+
+    public function isStrike($nb_pins)
+    {
+
     }
 }
