@@ -12,6 +12,14 @@ class BowlingTest extends TestCase
         $game->pin(0);
         $game->pin(0);
         $this->assertSame(0,$game->total());
-
     }
+
+    public function test_1_gutter_and_2_pins_score_2()
+    {
+        $game=new Bowling();
+        $game->pin(0);
+        $game->pin(2);
+        $this->assertSame(2,$game->total());
+    }
+
 }
