@@ -13,5 +13,6 @@ class Bowling
 
     public function total()
     {
+        return 0;
     }
 }
