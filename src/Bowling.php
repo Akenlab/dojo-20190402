@@ -9,15 +9,15 @@ class Bowling
 
     private $total_score = 0;
     private $strike = false;
-    private $nbSinceStrike = 0;
+    private $nbFireSinceStrike = 0;
 
     public function pins_fallen(int $nb_pins)
     {
         if ($this->strike) {
             $nb_pins *= 2;
-            $this->nbSinceStrike ++;
-            if ($this->nbSinceStrike == 2) {
-                $this->nbSinceStrike = 0;
+            $this->nbFireSinceStrike ++;
+            if ($this->nbFireSinceStrike == 2) {
+                $this->nbFireSinceStrike = 0;
                 $this->strike = false;
             }
         }
