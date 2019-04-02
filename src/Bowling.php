@@ -90,8 +90,8 @@ class Bowling
             $nb_pins *= 2;
             $this->spare = false;
         } else {
-            var_dump($this->nbPreceedingStrike);
             $this->nbPreceedingStrike =max(0,$this->nbPreceedingStrike--);
+            var_dump($this->nbPreceedingStrike);
         }
         return $nb_pins;
     }
