@@ -1,98 +1,115 @@
 <?php
-
-
 namespace App;
-
 
 class Bowling
 {
+    private $total=0;
+    private $pendingBonuses=0;
+    private $previousRollScore=false;
+    private $roll1DoneInFrame=false;
+    private $roll2DoneInFrame=false;
+    private $framesCounter=0;
 
-    private $total_score = 0;
-    private $strike = false;
-    private $spare = false;
-    private $nbFireSinceStrike = 0;
-    private $nbTurn = 0;
-    private $turnStarted = false;
-    private $nbPreceedingStrike = 0;
-
-    private $last_pin = 0;
-
-    public function fire(int $nb_pins)
+    public function roll(int $pinsFallen)
     {
+        // Update score
+        $this->scoreRoll($pinsFallen);
+        $this->applyPendingBonuses($pinsFallen);
 
-        $this->total_score += $this->computeScore($nb_pins);
-
-
-        $this->checkForStrikeOrSpare($nb_pins);
-
-        $this->last_pin = $nb_pins;
-
-        if ($this->strike || $this->turnStarted){
-            $this->nextTurn();
-        } else {
-            $this->turnStarted = true;
-        }
+        // Prepare next roll
+        $this->detectRollCountInFrame();
+        $this->detectSpare($pinsFallen);
+        $this->detectStrike($pinsFallen);
+        $this->closeFrameIfNeeded();
+        $this->previousRollScore=$pinsFallen;
     }
 
-    public function nextTurn(){
-        $this->nbTurn++;
-        $this->turnStarted = false;
+    public function score()
+    {
+        return $this->total;
     }
 
-    public function total()
+    private function scoreRoll(int $pinsFallen): void
     {
-        return $this->total_score;
+        $this->incrementTotal($pinsFallen);
     }
 
-    public function isSpare($first_pin, $second_pin)
+    private function applyBonus(int $bonus): void
     {
-        return ($first_pin + $second_pin === 10)
-            && $this->turnStarted;
+        $this->incrementTotal($bonus);
+        $this->pendingBonuses--;
     }
 
-    public function isStrike($first_pin)
+    public function nextRollIsLastOfFrame()
     {
-        return $first_pin === 10;
+        return $this->roll1DoneInFrame;
     }
 
     /**
-     * @param int $nb_pins
+     * @param int $pinsFallen
      */
-    public function checkForStrikeOrSpare(int $nb_pins): void
+    private function detectSpare(int $pinsFallen): void
     {
-        if ($this->isStrike($nb_pins)) {
-            $this->strike = true;
-            $this->nbPreceedingStrike += $this->nbPreceedingStrike == 2 ? 0 : 1;
-        } else if ($this->isSpare($this->last_pin, $nb_pins)) {
-            $this->spare = true;
+        if ((($pinsFallen + $this->previousRollScore === 10) && $this->roll2DoneInFrame)) {
+            $this->pendingBonuses ++;
         }
     }
 
-    /**
-     * @param int $nb_pins
-     * @return int
-     */
-    public function computeScore(int $nb_pins): int
+    private function detectStrike(int $pinsFallen)
     {
-        if ($this->strike) {
-            if($this->nbTurn===10){
-                $nb_pins *= 2;
+        if ((($pinsFallen === 10) && !$this->roll2DoneInFrame)) {
+            $this->setRoll2Done();
+            if($this->framesCounter<10){
+                $this->pendingBonuses += 2;
             }
-            $this->nbFireSinceStrike++;
-            if ($this->nbFireSinceStrike == 2) {
-                $this->nbFireSinceStrike = 0;
-                $this->strike = false;
+        }
+    }
+
+    private function applyPendingBonuses(int $pinsFallen): void
+    {
+        if ($this->pendingBonuses>0) {
+            if($this->weMade2StrikesInARow()){
+                $this->applyBonus($pinsFallen);
             }
-        } elseif ($this->spare) {
-            $this->nbPreceedingStrike=max(0,$this->nbPreceedingStrike-1);
-            $nb_pins *= 2;
-            $this->spare = false;
-        } else {
-            $this->nbPreceedingStrike =max(0,$this->nbPreceedingStrike-1);
+            $this->applyBonus($pinsFallen);
         }
-        if($this->nbTurn<10){
-            $nb_pins *= 1 + $this->nbPreceedingStrike;
+    }
+
+    private function detectRollCountInFrame(): void
+    {
+        if ($this->roll1DoneInFrame) {
+            $this->setRoll2Done();
         }
-        return $nb_pins;
+        $this->setRoll1Done();
+    }
+
+    private function closeFrameIfNeeded(): void
+    {
+        if ($this->roll2DoneInFrame) {
+            $this->roll1DoneInFrame = false;
+            $this->roll2DoneInFrame = false;
+        }
+    }
+
+    private function incrementTotal(int $pinsFallen): int
+    {
+        $this->total += $pinsFallen;
+        return $this->total;
+    }
+
+    private function setRoll2Done(): void
+    {
+        $this->roll2DoneInFrame = true;
+        $this->framesCounter++;
+    }
+
+    private function weMade2StrikesInARow(): bool
+    {
+        return $this->pendingBonuses > 2;
+    }
+
+    private function setRoll1Done(): void
+    {
+        $this->roll1DoneInFrame = true;
     }
 }
